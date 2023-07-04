@@ -3,9 +3,29 @@ import Header from "./MyComponents/header.js";
 import TODOS from "./MyComponents/todos";
 import Footer from "./MyComponents/footer";
 import React, {useState} from 'react';
+import AddTodo from './MyComponents/addTodo';
 
 
-function App() {
+function App() { 
+
+  const addTodo = (title, desc)=>{
+
+    let sno;
+
+    if(todos.length ==0){
+      sno=0;
+    }else{
+      sno = todos[todos.length-1].sno + 1;
+    }
+    
+    const myTodo = {
+      sno: sno,
+      title: title,
+      desc: desc
+    }
+
+    setTodos([...todos , myTodo]);
+  }
 
   const onDelete = (todo)=>{
 
@@ -17,32 +37,13 @@ function App() {
     
   }
 
-  const [ todos , setTodos] = useState([
-    {
-      sno: 1,
-      title: "Go to the market",
-      desc: "You need to go to the market and get the job done"
-    },
-    {
-      sno: 2,
-      title: "Go to the market",
-      desc: "You need to go to the market and get the job done"
-    },
-    {
-      sno: 3,
-      title: "Go to the market",
-      desc: "You need to go to the market and get the job done"
-    },
-    {
-      sno: 4,
-      title: "Go to the market",
-      desc: "You need to go to the market and get the job done"
-    }
-  ]);
+  const [ todos , setTodos] = useState([]);
 
   return (
-    <>
+    <> 
       <Header title="MyTodosList" />
+
+      <AddTodo addTodo={addTodo} /> 
 
       <TODOS todos={todos} onDelete={onDelete} />
 
